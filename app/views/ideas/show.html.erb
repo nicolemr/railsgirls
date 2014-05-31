@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @idea.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @idea.description %>
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  <%= image_tag @idea.picture %>
+</p>
+
+<h4>Comments</h4>
+<ul>
+	<% @idea.comments.each do |comment| %> 
+		<li>
+			 Who you are: 
+			<%= comment.user_name %>
+			<br>
+			What you thought: 
+			<%= comment.body %>
+		</li>
+
+	<% end %>
+</ul>
+<br>
+<br>
+<br>
+<br>
+<%= form_for Comment.new do |f| %>
+	<%= f.hidden_field :idea_id, value: @idea.id %>
+	<%= f.label "Tell me who you are:" %>
+	<%= f.text_field :user_name %>
+	<br>
+	<%= f.label "Tell me what you think:" %>
+	<%= f.text_field :body %>
+	<br>
+	<%= f.submit "Comment", class: "btn btn-success" %>
+<% end %>
+
+
+<%= link_to 'Edit', edit_idea_path(@idea) %> |
+<%= link_to 'Back', ideas_path %>
